@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\LoanController;
-use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\LoansController;
+use App\Http\Controllers\LocationsController;
+use App\Http\Controllers\ReturnsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,8 +15,13 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'checkuser'])->group(function () {
-Route::get('/loans', [LoanController::class, 'index']);
-Route::post('/loans', [LoanController::class, 'store']);
-Route::get('/returns', [ReturnController::class, 'index']);
-Route::post('/returns', [ReturnController::class, 'store']);
+Route::get('/loans', [LoansController::class, 'index']);
+Route::post('/loans', [LoansController::class, 'store']);
+Route::get('/returns', [ReturnsController::class, 'index']);
+Route::post('/returns', [ReturnsController::class, 'store']);
+
+Route::resource('categories', CategoriesController::class);
+Route::resource('locations', LocationsController::class);
+Route::resource('loans', LoansController::class);
+Route::resource('returns', ReturnsController::class);
 });
