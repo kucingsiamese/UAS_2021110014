@@ -10,7 +10,12 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+     public function index()
     {
         $categories = Category::all();
         return view('categories.index', compact('categories'));
