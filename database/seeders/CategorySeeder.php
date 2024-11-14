@@ -19,6 +19,15 @@ class CategorySeeder extends Seeder
             ['name' => 'Technology'],
             ['name' => 'History'],
             ['name' => 'Biography'],
+            ['name' => 'Sci-Fi'],
+            ['name' => 'Romance'],
+            ['name' => 'Mystery'],
+            ['name' => 'Horror'],
+            ['name' => 'Adventure'],
+            ['name' => 'Drama'],
+            ['name' => 'Dystopia'],
+            ['name' => 'Comedy'],
+            ['name' => 'Psychology'],
         ]);
     }
 }
