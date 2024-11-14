@@ -21,23 +21,23 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', [BooksController::class, 'index'])->name('books.index');
 
 // CRUD untuk kategori
-Route::resource('categories', CategoriesController::class);
+Route::resource('/categories', CategoriesController::class);
 
 // CRUD untuk lokasi
-Route::resource('locations', LocationsController::class);
+Route::resource('/locations', LocationsController::class);
 
 // Rute untuk buku (menampilkan, meminjam, dll.)
-Route::resource('books', BooksController::class);
+Route::resource('/books', BooksController::class);
 
 // Rute untuk transaksi peminjaman
-Route::get('books/{book}/loan', [LoansController::class, 'create'])->name('books.loan');
-Route::post('books/{book}/loan', [LoansController::class, 'store'])->name('books.loan.store');
+Route::get('/books/loan', [LoansController::class, 'create'])->name('books.loan');
+Route::post('/books/loan', [LoansController::class, 'store'])->name('books.loan.store');
 
 // Rute untuk transaksi pengembalian
-Route::get('loans/{loan}/return', [ReturnsController::class, 'create'])->name('books.return');
-Route::post('loans/{loan}/return', [ReturnsController::class, 'store'])->name('books.return.store');
+Route::get('/loans/return', [ReturnsController::class, 'create'])->name('books.return');
+Route::post('/loans/return', [ReturnsController::class, 'store'])->name('books.return.store');
 
 // Rute untuk mengelola transaksi peminjaman dan pengembalian
-Route::resource('loans', LoansController::class);
-Route::resource('returns', ReturnsController::class);
+Route::resource('/loans', LoansController::class);
+Route::resource('/returns', ReturnsController::class);
 //});

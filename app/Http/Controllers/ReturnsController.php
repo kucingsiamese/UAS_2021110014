@@ -15,6 +15,7 @@ class ReturnsController extends Controller
     public function index()
     {
         Returns::with('loan')->get();
+        $returns = Returns::all();
         return view('returns.index', compact('returns'));
     }
 

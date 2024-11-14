@@ -21,6 +21,7 @@ class LoansController extends Controller
     public function index()
     {
         $loans = Loan::with(['book', 'user'])->get();
+        $books = Book::all();
         return view('loans.index', compact('loans'));
     }
 
