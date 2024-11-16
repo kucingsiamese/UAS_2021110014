@@ -4,7 +4,7 @@
 <div class="container">
     <h1 class="mb-4">Book Locations</h1>
 
-    <!-- Tombol utk nadd new location -->
+    <!-- Tombol utk add new location -->
     <a href="{{ route('locations.create') }}" class="btn btn-primary mb-3">Add New Location</a>
 
     @if (session('success'))

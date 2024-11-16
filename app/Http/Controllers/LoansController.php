@@ -43,10 +43,22 @@ class LoansController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:books,id',
+            'quantity' => 'required|integer|min:1',
             'loan_date' => 'required|date',
             'due_date' => 'required|date|after_or_equal:loan_date',
         ]);
 
+        $book = Book::findOrFail($request->book_id);
+
+        // Cek ketersediaan buku
+        if ($book->quantity < $request->quantity) {
+            return redirect()->back()->withErrors('Not enough books available for this loan.');
+        }
+        // Mengurangi jumlah buku yang tersedia jika dipinjam
+        $book->quantity -= $request->quantity;
+        $book->save();
+
+        //Transaksi peminjaman
         Loan::create($request->all());
         return redirect()->route('loans.index')->with('success', 'Loan created successfully');
     }
@@ -77,12 +89,38 @@ class LoansController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'book_id' => 'required|exists:books,id',
+            'quantity' => 'required|integer|min:1',
             'loan_date' => 'required|date',
             'due_date' => 'required|date|after_or_equal:loan_date',
         ]);
 
-        $loan->update($request->all());
-        return redirect()->route('loans.index')->with('success', 'Loan updated successfully');
+        $book = Book::findOrFail($request->book_id);
+
+        // Kembalikan jumlah buku yang dipinjam sebelumnya
+        $book->quantity += $loan->quantity;
+
+        // Cek ketersediaan untuk update jumlah buku
+        if ($book->quantity < $request->quantity) {
+        return redirect()->back()->withErrors('Not enough books available for this update.');
+    }
+
+        // Kurangi jumlah buku yang baru dipinjam
+        $book->quantity -= $request->quantity;
+        $book->save();
+
+    //    $loan->update($request->all());
+    //    return redirect()->route('loans.index')->with('success', 'Loan updated successfully');
+
+        // Update transaksi peminjaman
+        $loan->update([
+        'user_id' => $request->user_id,
+        'book_id' => $request->book_id,
+        'quantity' => $request->quantity,
+        'loan_date' => $request->loan_date,
+        'due_date' => $request->due_date,
+    ]);
+
+        return redirect()->route('loans.index')->with('success', 'Loan updated successfully.');
     }
 
     /**
