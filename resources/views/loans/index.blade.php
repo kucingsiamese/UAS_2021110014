@@ -8,7 +8,7 @@
         <div class="form-group">
             <label for="book">Select Book</label>
             <select class="form-control" name="book_id" id="book">
-                @foreach ($books as $book)
+                @foreach ($loans as $loan)
                     <option value="{{ $book->id }}">{{ $book->title }}</option>
                 @endforeach
             </select>
