@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="background-color: #d496fd; padding: 40px; border-radius: 8px;">
     <h1 class="mb-4">Book Returns</h1>
 
     @if (session('success'))

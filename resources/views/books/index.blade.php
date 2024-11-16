@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="background-color: #d496fd; padding: 40px; border-radius: 8px;">
     <h2>Books List</h2>
     <a href="{{ route('books.create') }}" class="btn btn-primary mb-3">Add New Book</a>
     <table class="table table-bordered">
