@@ -5,6 +5,10 @@
     <h2>Books List</h2>
     <a href="{{ route('books.create') }}" class="btn btn-primary mb-3">Add New Book</a>
     <table class="table table-bordered">
+        @if ($books->isEmpty())
+        <p>No books are available in the library</p>
+    @else
+        <table class="table table-striped">
         <thead>
             <tr>
                 <th>Title</th>

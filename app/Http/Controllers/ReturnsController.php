@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Book;
 use App\Models\Returns;
 use App\Models\Loan;
 use Illuminate\Http\Request;
@@ -75,6 +75,26 @@ class ReturnsController extends Controller
         $return->update($request->all());
         return redirect()->route('returns.index')->with('success', 'Return updated successfully');
     }
+
+    public function returnBook($id)
+{
+    $loan = Loan::find($id);
+
+    if ($loan && $loan->status === 'borrowed') {
+        // Kembalikan jumlah buku yang dipinjam ke stok
+        $book = Book::find($loan->book_id);
+        $book->quantity += $loan->quantity;
+        $book->save();
+
+        // Ubah status pinjaman menjadi dikembalikan
+        $loan->status = 'returned';
+        $loan->save();
+
+        return redirect()->route('returns.index')->with('success', 'Book returned successfully.');
+    }
+
+    return redirect()->route('returns.index')->withErrors('Loan record not found or already returned.');
+}
 
     /**
      * Remove the specified resource from storage.
