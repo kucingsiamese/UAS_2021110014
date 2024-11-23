@@ -14,9 +14,12 @@ class ReturnsController extends Controller
      */
     public function index()
     {
-        Returns::with('loan')->get();
-        $returns = Returns::all();
-        return view('returns.index', compact('returns'));
+        //Returns::with('loan')->get();
+        //$returns = Returns::all();
+
+        // Ambil semua data pinjaman yang sedang aktif
+        $loans = Loan::where('status', 'borrowed')->get();
+        return view('returns.index', compact('loans'));
     }
 
     /**

@@ -48,18 +48,26 @@ class LoansController extends Controller
             'due_date' => 'required|date|after_or_equal:loan_date',
         ]);
 
-        $book = Book::findOrFail($request->book_id);
+        $book = Book::find($request->book_id);
 
         // Cek ketersediaan buku
         if ($book->quantity < $request->quantity) {
-            return redirect()->back()->withErrors('Not enough books available for this loan.');
+            return redirect()->back()->withErrors('The quantity exceeds available stock.');
         }
         // Mengurangi jumlah buku yang tersedia jika dipinjam
         $book->quantity -= $request->quantity;
         $book->save();
 
         //Transaksi peminjaman
-        Loan::create($request->all());
+        //Loan::create($request->all());
+        $loan = new Loan();
+        $loan->book_id = $request->book_id;
+        $loan->quantity = $request->quantity;
+        $loan->loan_date = $request->loan_date;
+        $loan->due_date = $request->due_date;
+        $loan->status = 'borrowed';
+        $loan->save();
+
         return redirect()->route('loans.index')->with('success', 'Loan created successfully');
     }
 
