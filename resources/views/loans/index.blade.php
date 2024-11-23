@@ -26,6 +26,9 @@
                         <option value="12">1984</option>
                         <option value="13">Good Omens</option>
                         <option value="14">Fight Club</option>
+                        @foreach($loans as $loans)
+                            <option value="{{ $book->id }}">{{ $book->title }} (Available: {{ $book->quantity }})</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
