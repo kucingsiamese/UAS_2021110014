@@ -10,11 +10,22 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="book_id">Select Book</label>
-                    <select name="book_id" id="book_id" class="form-control">
+                    <select name="book_id" id="book_id" class="form-select" size="1" style="height: auto;">
                         <option value="" disabled selected>Select a book</option>
-                        @foreach($loans as $loans)
-                            <option value="{{ $book->id }}">{{ $book->title }} (Available: {{ $book->quantity }})</option>
-                        @endforeach
+                        <option value="1">Harry Potter</option>
+                        <option value="2">Brief History of Time</option>
+                        <option value="3">Clean Code</option>
+                        <option value="4">Sapiens: A Brief History of Humankind</option>
+                        <option value="5">Steve Jobs Biography</option>
+                        <option value="6">Dune</option>
+                        <option value="7">Pride and Prejudice</option>
+                        <option value="8">Sherlock Holmes: The Hound of the Baskervilles</option>
+                        <option value="9">The Shining</option>
+                        <option value="10">The Hobbit</option>
+                        <option value="11">Atonement</option>
+                        <option value="12">1984</option>
+                        <option value="13">Good Omens</option>
+                        <option value="14">Fight Club</option>
                     </select>
                 </div>
             </div>
